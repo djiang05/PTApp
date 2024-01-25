@@ -1,0 +1,25 @@
+class Solution {
+    public int minimumRightShifts(List<Integer> nums) {
+        for(int i = 0; i < nums.size(); i++){
+            if(isSorted(nums, nums.get(0))){return i;}
+            else{nums = rightShift(nums);}
+        }
+        return -1;
+    }
+
+    public List<Integer> rightShift(List<Integer> nums){
+        int n = nums.size();
+        List<Integer> newNums = new ArrayList<Integer>(n - 1);
+        newNums.add(nums.get(n-1));
+        for(int i = 0; i < n-1; i++){
+            newNums.add(nums.get(i));
+        }
+        return newNums;
+    }
+
+    public boolean isSorted(List<Integer> nums, int num){
+        if(nums.size() == 0){return true;}
+        else if(nums.get(0) < num){return false;}
+        else{return isSorted(nums.subList(1, nums.size()), nums.get(0));}
+    }
+}

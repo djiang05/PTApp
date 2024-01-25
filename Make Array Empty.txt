@@ -1,0 +1,33 @@
+class Solution {
+    public long countOperationsToEmptyArray(int[] nums) {
+        int steps = 1;
+        while(nums.length > 1){
+            if(firstSmallest(nums)){
+                int[] newNums = new int[nums.length-1];
+                for(int i = 1; i < nums.length; i++){
+                    newNums[i-1] = nums[i];
+                }
+                nums = newNums;
+            }
+            else{
+                int[] newNums = new int[nums.length];
+                int numsFirst = nums[0];
+                for(int i = 1; i < nums.length; i++){
+                    newNums[i-1] = nums[i];
+                }
+                newNums[nums.length-1] = numsFirst;
+                nums = newNums;
+            }
+            steps++;
+        }
+        return steps;
+    }
+
+    public boolean firstSmallest(int[] nums){
+        int target = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            if(target >= nums[i]){return false;}
+        }
+        return true;
+    }
+}
